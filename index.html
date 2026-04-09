@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Southvalley Thunder | Bakersfield Soccer Club</title>
+  <meta name="description" content="Southvalley Thunder — Bakersfield's premier soccer club. Fueled by passion, driven by thunder." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* === HOME-SPECIFIC === */
+
+    /* Features */
+    .features { padding: 6rem 0; background: linear-gradient(180deg, var(--black-soft) 0%, var(--blue-deep) 100%); }
+    .feature-card h3 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .feature-card p { font-size: 0.92rem; color: var(--white-faint); line-height: 1.7; }
+
+    /* Next Match */
+    .next-match {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(0, 40, 112, 0.3), rgba(0, 18, 53, 0.8)),
+                  var(--blue-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .next-match::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(0,163,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0,163,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .match-card {
+      background: linear-gradient(135deg, rgba(0, 50, 140, 0.5), rgba(0, 20, 60, 0.7));
+      border: 1px solid rgba(0, 200, 255, 0.3);
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 100, 255, 0.15);
+    }
+    .match-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue-electric), transparent);
+    }
+    .match-tag {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      border: 1px solid rgba(0,163,255,0.3);
+      background: rgba(0,163,255,0.08);
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+    .match-teams {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .match-team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .match-team-crest {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      border: 2px solid rgba(0,200,255,0.3);
+      background: rgba(0,40,120,0.5);
+      box-shadow: var(--glow-sm);
+    }
+    .match-team-name {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .match-vs {
+      font-family: var(--font-head);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--white-faint);
+      letter-spacing: 0.1em;
+    }
+    .match-info {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .match-detail {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .match-detail-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-bottom: 0.3rem;
+      font-family: var(--font-head);
+    }
+    .match-detail-val {
+      font-size: 0.95rem;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .countdown-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 72px;
+    }
+    .countdown-num {
+      font-family: var(--font-head);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--white);
+      text-shadow: var(--glow-text);
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(0,50,140,0.6), rgba(0,20,60,0.8));
+      border: 1px solid rgba(0,200,255,0.3);
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      min-width: 70px;
+      text-align: center;
+      box-shadow: var(--glow-sm);
+    }
+    .countdown-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-top: 0.5rem;
+      font-family: var(--font-head);
+    }
+
+    /* News */
+    .news { padding: 6rem 0; }
+    .news-card { cursor: pointer; }
+    .news-tag {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      border: 1px solid rgba(0,163,255,0.25);
+      background: rgba(0,163,255,0.08);
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+    .news-date {
+      font-size: 0.75rem;
+      color: var(--white-faint);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .news-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+      transition: color var(--transition), text-shadow var(--transition);
+    }
+    .news-card:hover .news-title {
+      color: var(--blue-glow);
+      text-shadow: var(--glow-text);
+    }
+    .news-excerpt { font-size: 0.88rem; color: var(--white-faint); line-height: 1.7; }
+    .news-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-head);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      margin-top: 1rem;
+      transition: gap var(--transition);
+    }
+    .news-card:hover .news-link { gap: 0.8rem; }
+
+    /* Sponsors */
+    .sponsors {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(0,200,255,0.1);
+      border-bottom: 1px solid rgba(0,200,255,0.1);
+      background: var(--black-soft);
+    }
+    .sponsors-label {
+      text-align: center;
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-bottom: 2.5rem;
+    }
+    .sponsors-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .sponsor-item {
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 3px;
+      transition: all var(--transition);
+    }
+    .sponsor-item:hover {
+      color: var(--white);
+      border-color: rgba(0,200,255,0.3);
+      box-shadow: var(--glow-sm);
+      background: rgba(0,163,255,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">⚡</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Southvalley</span>
+          <span class="nav-logo-sub">Thunder FC</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="team.html"     class="nav-link">Team</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+        <li><a href="contact.html"  class="nav-cta">Join Now</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-orbs">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">&#9889; Bakersfield's Premier Soccer Club</div>
+      <h1 class="hero-title">
+        <span class="hero-title-main">Southvalley</span>
+        <span class="hero-title-accent">Thunder</span>
+      </h1>
+      <p class="hero-desc">
+        Born from the valley. Driven by passion. The thunder doesn't stop — and neither do we.
+        Representing Bakersfield with power, precision, and pride.
+      </p>
+      <div class="hero-actions">
+        <a href="team.html" class="btn btn-primary">&#9889; Meet the Team</a>
+        <a href="schedule.html" class="btn btn-outline">View Schedule</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="14">0</span>
+          <span class="hero-stat-label">Season Wins</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="3">0</span>
+          <span class="hero-stat-label">Championships</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="22">0</span>
+          <span class="hero-stat-label">Active Players</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-count="8">0</span>
+          <span class="hero-stat-label">Years Strong</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FEATURES ======== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-center animate-in">
+        <div class="section-label">Why Thunder</div>
+        <h2 class="section-title">Built for Champions</h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle">Everything we do is designed to bring out the best</p>
+      </div>
+      <div class="grid-3">
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Elite Training</h3>
+          <p>Structured training programs developed by certified coaches with years of competitive soccer experience at all levels.</p>
+        </div>
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#127942;</div>
+          <h3>Championship Culture</h3>
+          <p>Three regional titles and counting. Our winning culture drives every practice, every match, every season.</p>
+        </div>
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#127942;</div>
+          <h3>Community Roots</h3>
+          <p>Deeply rooted in Bakersfield. We represent the valley with pride and give back through youth clinics and local events.</p>
+        </div>
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#128200;</div>
+          <h3>Player Development</h3>
+          <p>Individualized development plans track each player's growth and help them reach their full potential on and off the field.</p>
+        </div>
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#128101;</div>
+          <h3>Team Brotherhood</h3>
+          <p>More than teammates — a family. The Thunder bond extends beyond the pitch and builds lifelong connections.</p>
+        </div>
+        <div class="card feature-card animate-in">
+          <div class="feature-icon">&#127760;</div>
+          <h3>Competitive Play</h3>
+          <p>We compete in regional and state-level leagues, giving players exposure to high-quality competition all season long.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== NEXT MATCH ======== -->
+  <section class="next-match">
+    <div class="container">
+      <div class="section-center animate-in" style="margin-bottom:2.5rem;">
+        <div class="section-label">Upcoming</div>
+        <h2 class="section-title">Next Match</h2>
+        <div class="divider divider-center"></div>
+      </div>
+      <div class="match-card animate-in">
+        <div class="match-tag">&#128197; Regular Season — Game 15</div>
+        <div class="match-teams">
+          <div class="match-team">
+            <div class="match-team-crest">&#9889;</div>
+            <div class="match-team-name">Southvalley Thunder</div>
+          </div>
+          <div class="match-vs">VS</div>
+          <div class="match-team">
+            <div class="match-team-crest">&#128293;</div>
+            <div class="match-team-name">Fresno Inferno FC</div>
+          </div>
+        </div>
+        <div class="countdown" id="countdown">
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-days">--</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-hours">--</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-mins">--</div>
+            <div class="countdown-label">Mins</div>
+          </div>
+          <div class="countdown-block">
+            <div class="countdown-num" id="cd-secs">--</div>
+            <div class="countdown-label">Secs</div>
+          </div>
+        </div>
+        <div class="match-info">
+          <div class="match-detail">
+            <span class="match-detail-label">Date</span>
+            <span class="match-detail-val">April 19, 2026</span>
+          </div>
+          <div class="match-detail">
+            <span class="match-detail-label">Kickoff</span>
+            <span class="match-detail-val">3:00 PM</span>
+          </div>
+          <div class="match-detail">
+            <span class="match-detail-label">Venue</span>
+            <span class="match-detail-val">Bakersfield Sports Village</span>
+          </div>
+          <div class="match-detail">
+            <span class="match-detail-label">Competition</span>
+            <span class="match-detail-val">Central Valley League</span>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="schedule.html" class="btn btn-primary">Full Schedule &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== NEWS ======== -->
+  <section class="news">
+    <div class="container">
+      <div class="section-center animate-in">
+        <div class="section-label">Latest</div>
+        <h2 class="section-title">Thunder News</h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle">Stay up to date with the club</p>
+      </div>
+      <div class="grid-3">
+        <div class="card news-card animate-in">
+          <div class="news-tag">Club News</div>
+          <div class="news-date">April 5, 2026</div>
+          <h3 class="news-title">Thunder Clinch Top Spot in Central Valley League</h3>
+          <p class="news-excerpt">An electrifying 3–1 victory over Valley Kings secured first place in the standings heading into the final stretch of the season.</p>
+          <a href="news.html" class="news-link">Read More &#8594;</a>
+        </div>
+        <div class="card news-card animate-in">
+          <div class="news-tag">Transfers</div>
+          <div class="news-date">March 28, 2026</div>
+          <h3 class="news-title">Club Signs Three New Players for Spring Roster</h3>
+          <p class="news-excerpt">Southvalley Thunder bolsters its squad with three talented additions ahead of the crucial final third of the season.</p>
+          <a href="news.html" class="news-link">Read More &#8594;</a>
+        </div>
+        <div class="card news-card animate-in">
+          <div class="news-tag">Community</div>
+          <div class="news-date">March 15, 2026</div>
+          <h3 class="news-title">Free Youth Clinic Returns to Bakersfield This Summer</h3>
+          <p class="news-excerpt">The Thunder's annual free youth soccer clinic is back, giving Bakersfield kids ages 7–14 a chance to train with the pros.</p>
+          <a href="news.html" class="news-link">Read More &#8594;</a>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:3rem;" class="animate-in">
+        <a href="news.html" class="btn btn-outline">All News &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== SPONSORS ======== -->
+  <section class="sponsors">
+    <div class="container">
+      <p class="sponsors-label">Proud Partners &amp; Sponsors</p>
+      <div class="sponsors-row">
+        <div class="sponsor-item">Valley Sports</div>
+        <div class="sponsor-item">Kern Energy</div>
+        <div class="sponsor-item">BakersGroup</div>
+        <div class="sponsor-item">Central Bank</div>
+        <div class="sponsor-item">Thunder Athletics</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Southvalley Thunder</div>
+          <div class="footer-brand-sub">Bakersfield Soccer Club</div>
+          <p class="footer-brand-desc">Born from the valley. Driven by thunder. Representing Bakersfield with passion, precision, and pride since 2018.</p>
+        </div>
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Club</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Coaching Staff</a></li>
+            <li><a href="#">Youth Program</a></li>
+            <li><a href="#">Sponsorship</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a href="contact.html">Get In Touch</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter / X</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved. Bakersfield, CA.</p>
+        <p class="footer-copy">Built with <span>&#9889;</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Countdown to April 19, 2026 3:00 PM
+    function tick() {
+      const target = new Date('2026-04-19T15:00:00');
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent  = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent  = '00';
+        document.getElementById('cd-secs').textContent  = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

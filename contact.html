@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Southvalley Thunder</title>
+  <meta name="description" content="Get in touch with Southvalley Thunder FC — join the team, sponsor us, or just say hi." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* === CONTACT LAYOUT === */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* === FORM === */
+    .form-card {
+      background: linear-gradient(160deg, rgba(0, 50, 140, 0.4), rgba(0, 15, 50, 0.7));
+      border: var(--border-glow);
+      border-radius: 8px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-core), var(--blue-electric), var(--blue-glow));
+      box-shadow: 0 0 15px var(--blue-electric);
+    }
+
+    .form-title {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      text-shadow: var(--glow-sm);
+    }
+
+    .form-desc {
+      font-size: 0.9rem;
+      color: var(--white-faint);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-label {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      background: rgba(0, 11, 26, 0.5);
+      border: 1px solid rgba(0, 200, 255, 0.2);
+      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      width: 100%;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: rgba(136, 153, 204, 0.5);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--blue-electric);
+      background: rgba(0, 40, 100, 0.3);
+      box-shadow: var(--glow-sm), 0 0 0 3px rgba(0, 163, 255, 0.1);
+    }
+
+    .form-select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2300A3FF' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+
+    .form-select option {
+      background: var(--blue-dark);
+      color: var(--white);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    /* === INFO CARDS === */
+    .info-stack { display: flex; flex-direction: column; gap: 1rem; }
+
+    .info-card {
+      background: linear-gradient(135deg, rgba(0, 40, 112, 0.4), rgba(0, 15, 50, 0.7));
+      border: var(--border-glow);
+      border-radius: 6px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      transition: all var(--transition);
+    }
+
+    .info-card:hover {
+      border-color: rgba(0, 200, 255, 0.7);
+      box-shadow: var(--glow-sm);
+      transform: translateY(-2px);
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      background: linear-gradient(135deg, rgba(0, 71, 204, 0.6), rgba(0, 163, 255, 0.3));
+      border: 1px solid rgba(0, 200, 255, 0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: var(--glow-sm);
+      transition: box-shadow var(--transition);
+    }
+
+    .info-card:hover .info-icon {
+      box-shadow: var(--glow-md);
+    }
+
+    .info-label {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      margin-bottom: 0.3rem;
+    }
+
+    .info-value {
+      font-size: 0.95rem;
+      color: var(--white);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* === JOIN SECTION === */
+    .join-section {
+      padding: 6rem 0;
+      background: var(--black-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,163,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,163,255,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .join-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .join-card {
+      text-align: center;
+    }
+
+    .join-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .join-card-title {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .join-card p {
+      font-size: 0.88rem;
+      color: var(--white-faint);
+      line-height: 1.7;
+    }
+
+    /* Social */
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-head);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      background: rgba(0,163,255,0.06);
+      border: 1px solid rgba(0,200,255,0.2);
+      padding: 0.65rem 1.2rem;
+      border-radius: 3px;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .social-btn:hover {
+      color: var(--white);
+      border-color: var(--blue-electric);
+      box-shadow: var(--glow-sm);
+      background: rgba(0,163,255,0.12);
+      text-shadow: none;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">⚡</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Southvalley</span>
+          <span class="nav-logo-sub">Thunder FC</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="team.html"     class="nav-link">Team</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link active">Contact</a></li>
+        <li><a href="contact.html"  class="nav-cta">Join Now</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">&#8250;</span>
+        <span>Contact</span>
+      </div>
+      <div class="section-label">Get In Touch</div>
+      <h1 class="page-hero-title">Contact Us</h1>
+      <p class="page-hero-desc">Questions, trials, sponsorship, or just want to know more? We'd love to hear from you.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- FORM -->
+        <div>
+          <div class="form-card animate-in">
+            <h2 class="form-title">Send Us a Message</h2>
+            <p class="form-desc">Fill out the form below and our team will get back to you within 24 hours.</p>
+
+            <form class="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="fname">First Name</label>
+                  <input class="form-input" type="text" id="fname" name="fname" placeholder="John" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="lname">Last Name</label>
+                  <input class="form-input" type="text" id="lname" name="lname" placeholder="Doe" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="you@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone Number (optional)</label>
+                <input class="form-input" type="tel" id="phone" name="phone" placeholder="(661) 555-0000" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="subject">Subject</label>
+                <select class="form-select" id="subject" name="subject">
+                  <option value="">Select a topic...</option>
+                  <option value="tryout">Player Trials / Tryouts</option>
+                  <option value="sponsor">Sponsorship Inquiry</option>
+                  <option value="youth">Youth Program</option>
+                  <option value="media">Media / Press</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea class="form-textarea" id="message" name="message" placeholder="Tell us more..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary form-submit">
+                &#9889; Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- INFO -->
+        <aside>
+          <div class="info-stack">
+
+            <div class="animate-in">
+              <div class="section-label" style="margin-bottom:1rem;">Club Info</div>
+            </div>
+
+            <div class="info-card animate-in">
+              <div class="info-icon">&#128205;</div>
+              <div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Bakersfield Sports Village<br />Bakersfield, CA 93301</div>
+              </div>
+            </div>
+
+            <div class="info-card animate-in">
+              <div class="info-icon">&#128222;</div>
+              <div>
+                <div class="info-label">Phone</div>
+                <div class="info-value">(661) 555-0187</div>
+              </div>
+            </div>
+
+            <div class="info-card animate-in">
+              <div class="info-icon">&#9993;</div>
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value">info@southvalleythunder.com</div>
+              </div>
+            </div>
+
+            <div class="info-card animate-in">
+              <div class="info-icon">&#128337;</div>
+              <div>
+                <div class="info-label">Office Hours</div>
+                <div class="info-value">Mon–Fri: 9:00 AM – 6:00 PM<br />Sat: 9:00 AM – 2:00 PM</div>
+              </div>
+            </div>
+
+            <div class="info-card animate-in">
+              <div class="info-icon">&#127344;</div>
+              <div>
+                <div class="info-label">Training Schedule</div>
+                <div class="info-value">Tue &amp; Thu: 6:00 PM – 8:00 PM<br />Sat: 8:00 AM – 10:00 AM</div>
+              </div>
+            </div>
+
+            <!-- Social -->
+            <div class="animate-in" style="margin-top:0.5rem;">
+              <div class="section-label" style="margin-bottom:1rem;">Follow the Thunder</div>
+              <div class="social-row">
+                <a href="#" class="social-btn">&#128247; Instagram</a>
+                <a href="#" class="social-btn">&#128100; Facebook</a>
+                <a href="#" class="social-btn">&#120143; Twitter</a>
+                <a href="#" class="social-btn">&#127916; YouTube</a>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN OPTIONS -->
+  <section class="join-section">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-center animate-in">
+        <div class="section-label">Get Involved</div>
+        <h2 class="section-title">Join the Thunder Family</h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle">There's a place for everyone at Southvalley Thunder</p>
+      </div>
+      <div class="join-grid">
+        <div class="card join-card animate-in">
+          <span class="join-icon">&#9889;</span>
+          <div class="join-card-title">Player Trials</div>
+          <p>We hold open trials at the start of each season. Contact us to register and bring your A-game to Bakersfield Sports Village.</p>
+          <div style="margin-top:1.5rem;">
+            <a href="#" class="btn btn-primary btn-sm">Register for Trials</a>
+          </div>
+        </div>
+        <div class="card join-card animate-in">
+          <span class="join-icon">&#127954;</span>
+          <div class="join-card-title">Youth Program</div>
+          <p>Ages 7–17. Our youth program develops the next generation of Thunder talent with certified coaches and structured development.</p>
+          <div style="margin-top:1.5rem;">
+            <a href="#" class="btn btn-outline btn-sm">Learn More</a>
+          </div>
+        </div>
+        <div class="card join-card animate-in">
+          <span class="join-icon">&#129309;</span>
+          <div class="join-card-title">Sponsorship</div>
+          <p>Partner with Southvalley Thunder and put your brand in front of the passionate Bakersfield soccer community.</p>
+          <div style="margin-top:1.5rem;">
+            <a href="#" class="btn btn-outline btn-sm">Sponsorship Info</a>
+          </div>
+        </div>
+        <div class="card join-card animate-in">
+          <span class="join-icon">&#128483;</span>
+          <div class="join-card-title">Volunteer</div>
+          <p>Help run match days, events, and youth clinics. Volunteers are the backbone of our community club.</p>
+          <div style="margin-top:1.5rem;">
+            <a href="#" class="btn btn-outline btn-sm">Volunteer With Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Southvalley Thunder</div>
+          <div class="footer-brand-sub">Bakersfield Soccer Club</div>
+          <p class="footer-brand-desc">Born from the valley. Driven by thunder. Representing Bakersfield with passion, precision, and pride since 2018.</p>
+        </div>
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Club</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Coaching Staff</a></li>
+            <li><a href="#">Youth Program</a></li>
+            <li><a href="#">Sponsorship</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a href="contact.html">Get In Touch</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter / X</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved. Bakersfield, CA.</p>
+        <p class="footer-copy">Built with <span>&#9889;</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

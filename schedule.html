@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule | Southvalley Thunder</title>
+  <meta name="description" content="Southvalley Thunder match schedule — fixtures, results, and standings." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* === FILTER BUTTONS === */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.6rem 1.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: var(--white);
+      border-color: var(--blue-electric);
+      background: rgba(0,163,255,0.1);
+      box-shadow: var(--glow-sm);
+    }
+
+    /* === GAME CARD === */
+    .games-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .game-card {
+      background: linear-gradient(135deg, rgba(0, 40, 112, 0.4), rgba(0, 15, 50, 0.7));
+      border: var(--border-glow);
+      border-radius: 6px;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 3px;
+      background: var(--blue-electric);
+      box-shadow: 0 0 10px var(--blue-electric);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .game-card:hover {
+      border-color: rgba(0, 200, 255, 0.6);
+      box-shadow: var(--glow-md);
+      transform: translateX(4px);
+    }
+
+    .game-card:hover::before { opacity: 1; }
+
+    .game-card.result-win   { border-left-color: rgba(0, 200, 106, 0.5); }
+    .game-card.result-loss  { border-left-color: rgba(220, 50, 50, 0.5); }
+    .game-card.result-draw  { border-left-color: rgba(255, 200, 0, 0.5); }
+    .game-card.upcoming     { border-left-color: rgba(0, 163, 255, 0.5); }
+
+    .game-date {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game-date-day {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--white);
+      text-shadow: var(--glow-sm);
+      line-height: 1;
+    }
+
+    .game-date-month {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+    }
+
+    .game-date-time {
+      font-size: 0.8rem;
+      color: var(--white-faint);
+      margin-top: 0.25rem;
+    }
+
+    .game-info { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .game-matchup {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .game-team {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .game-team.home { color: var(--blue-glow); text-shadow: var(--glow-text); }
+
+    .game-vs {
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--white-faint);
+    }
+
+    .game-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .game-venue {
+      font-size: 0.8rem;
+      color: var(--white-faint);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .game-competition {
+      font-family: var(--font-head);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      background: rgba(0,163,255,0.1);
+      border: 1px solid rgba(0,163,255,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .game-result {
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .game-score {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-shadow: var(--glow-sm);
+      line-height: 1;
+    }
+
+    .game-outcome {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      margin-top: 0.4rem;
+    }
+
+    .outcome-win  { color: #00C86A; background: rgba(0,200,106,0.1); border: 1px solid rgba(0,200,106,0.3); }
+    .outcome-loss { color: #FF4444; background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3); }
+    .outcome-draw { color: #FFD700; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); }
+    .outcome-tbd  { color: var(--blue-electric); background: rgba(0,163,255,0.08); border: 1px solid rgba(0,163,255,0.2); }
+
+    /* === STANDINGS === */
+    .standings { padding: 6rem 0; background: var(--black-soft); }
+
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .standings-table thead th {
+      font-family: var(--font-head);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-electric);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,200,255,0.2);
+    }
+
+    .standings-table thead th:not(:first-child) { text-align: center; }
+
+    .standings-table tbody tr {
+      border-bottom: 1px solid rgba(0,200,255,0.08);
+      transition: all var(--transition);
+    }
+
+    .standings-table tbody tr:hover {
+      background: rgba(0,163,255,0.06);
+    }
+
+    .standings-table tbody tr.thunder-row {
+      background: rgba(0, 87, 255, 0.12);
+      border-left: 3px solid var(--blue-electric);
+    }
+
+    .standings-table tbody tr.thunder-row:hover {
+      background: rgba(0, 87, 255, 0.2);
+    }
+
+    .standings-table td {
+      padding: 1rem;
+      color: var(--white-dim);
+    }
+
+    .standings-table td:not(:first-child) { text-align: center; }
+
+    .standings-pos {
+      font-family: var(--font-head);
+      font-weight: 700;
+      color: var(--white-faint);
+      font-size: 0.85rem;
+      width: 40px;
+    }
+
+    .standings-pos.top { color: var(--blue-electric); text-shadow: var(--glow-sm); }
+
+    .standings-club {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .standings-pts {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--white);
+      text-shadow: var(--glow-sm);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border: var(--border-glow);
+      border-radius: 6px;
+      box-shadow: 0 0 30px rgba(0,100,255,0.1);
+    }
+
+    /* === SEASON SUMMARY === */
+    .season-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .summary-block {
+      background: linear-gradient(135deg, rgba(0,50,140,0.4), rgba(0,15,50,0.6));
+      border: var(--border-glow);
+      border-radius: 6px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .summary-block:hover {
+      box-shadow: var(--glow-sm);
+      border-color: rgba(0,200,255,0.6);
+    }
+
+    .summary-num {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--white);
+      text-shadow: var(--glow-text);
+      line-height: 1;
+    }
+
+    .summary-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-top: 0.4rem;
+      font-family: var(--font-head);
+    }
+
+    @media (max-width: 768px) {
+      .game-card {
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .game-result {
+        grid-column: 2;
+        text-align: left;
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">⚡</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Southvalley</span>
+          <span class="nav-logo-sub">Thunder FC</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="team.html"     class="nav-link">Team</a></li>
+        <li><a href="schedule.html" class="nav-link active">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+        <li><a href="contact.html"  class="nav-cta">Join Now</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">&#8250;</span>
+        <span>Schedule</span>
+      </div>
+      <div class="section-label">2026 Season</div>
+      <h1 class="page-hero-title">Fixtures &amp; Results</h1>
+      <p class="page-hero-desc">Every match of the season — past results, upcoming fixtures, and live standings.</p>
+    </div>
+  </section>
+
+  <!-- SEASON SUMMARY -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="season-summary animate-in">
+        <div class="summary-block">
+          <div class="summary-num" data-count="18">0</div>
+          <div class="summary-lbl">Played</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="14">0</div>
+          <div class="summary-lbl">Wins</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="2">0</div>
+          <div class="summary-lbl">Draws</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="2">0</div>
+          <div class="summary-lbl">Losses</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="47">0</div>
+          <div class="summary-lbl">Goals For</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="18">0</div>
+          <div class="summary-lbl">Goals Against</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-num" data-count="44">0</div>
+          <div class="summary-lbl">Points</div>
+        </div>
+      </div>
+
+      <!-- FILTER -->
+      <div class="filter-bar animate-in">
+        <button class="filter-btn active" data-filter="all">All Matches</button>
+        <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+        <button class="filter-btn" data-filter="result">Results</button>
+        <button class="filter-btn" data-filter="home">Home</button>
+        <button class="filter-btn" data-filter="away">Away</button>
+      </div>
+
+      <!-- GAMES -->
+      <div class="games-list animate-in">
+
+        <!-- UPCOMING -->
+        <div class="game-card upcoming" data-type="upcoming">
+          <div class="game-date">
+            <div class="game-date-day">19</div>
+            <div class="game-date-month">Apr 2026</div>
+            <div class="game-date-time">3:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team home">Southvalley Thunder</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team">Fresno Inferno FC</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Bakersfield Sports Village</span>
+              <span class="game-competition">Central Valley League</span>
+              <span style="font-size:0.75rem;color:var(--white-faint);">Home</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-outcome outcome-tbd">Upcoming</div>
+          </div>
+        </div>
+
+        <div class="game-card upcoming" data-type="upcoming">
+          <div class="game-date">
+            <div class="game-date-day">26</div>
+            <div class="game-date-month">Apr 2026</div>
+            <div class="game-date-time">1:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team">Visalia Predators</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team home">Southvalley Thunder</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Visalia Stadium</span>
+              <span class="game-competition">Central Valley League</span>
+              <span style="font-size:0.75rem;color:var(--white-faint);">Away</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-outcome outcome-tbd">Upcoming</div>
+          </div>
+        </div>
+
+        <div class="game-card upcoming" data-type="upcoming">
+          <div class="game-date">
+            <div class="game-date-day">03</div>
+            <div class="game-date-month">May 2026</div>
+            <div class="game-date-time">4:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team home">Southvalley Thunder</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team">Stockton United</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Bakersfield Sports Village</span>
+              <span class="game-competition">CVL Playoffs — Round 1</span>
+              <span style="font-size:0.75rem;color:var(--white-faint);">Home</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-outcome outcome-tbd">Upcoming</div>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="game-card result-win" data-type="result">
+          <div class="game-date">
+            <div class="game-date-day">05</div>
+            <div class="game-date-month">Apr 2026</div>
+            <div class="game-date-time">3:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team home">Southvalley Thunder</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team">Valley Kings FC</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Bakersfield Sports Village</span>
+              <span class="game-competition">Central Valley League</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-score">3 &ndash; 1</div>
+            <div class="game-outcome outcome-win">Win</div>
+          </div>
+        </div>
+
+        <div class="game-card result-win" data-type="result">
+          <div class="game-date">
+            <div class="game-date-day">29</div>
+            <div class="game-date-month">Mar 2026</div>
+            <div class="game-date-time">2:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team">Modesto Rangers</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team home">Southvalley Thunder</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Modesto Sports Complex</span>
+              <span class="game-competition">Central Valley League</span>
+              <span style="font-size:0.75rem;color:var(--white-faint);">Away</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-score">1 &ndash; 2</div>
+            <div class="game-outcome outcome-win">Win</div>
+          </div>
+        </div>
+
+        <div class="game-card result-draw" data-type="result">
+          <div class="game-date">
+            <div class="game-date-day">22</div>
+            <div class="game-date-month">Mar 2026</div>
+            <div class="game-date-time">12:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team home">Southvalley Thunder</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team">Bakersfield Hawks</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Bakersfield Sports Village</span>
+              <span class="game-competition">Central Valley League</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-score">2 &ndash; 2</div>
+            <div class="game-outcome outcome-draw">Draw</div>
+          </div>
+        </div>
+
+        <div class="game-card result-win" data-type="result">
+          <div class="game-date">
+            <div class="game-date-day">15</div>
+            <div class="game-date-month">Mar 2026</div>
+            <div class="game-date-time">3:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team home">Southvalley Thunder</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team">Tulare City FC</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Bakersfield Sports Village</span>
+              <span class="game-competition">Central Valley League</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-score">4 &ndash; 0</div>
+            <div class="game-outcome outcome-win">Win</div>
+          </div>
+        </div>
+
+        <div class="game-card result-loss" data-type="result">
+          <div class="game-date">
+            <div class="game-date-day">08</div>
+            <div class="game-date-month">Mar 2026</div>
+            <div class="game-date-time">4:00 PM</div>
+          </div>
+          <div class="game-info">
+            <div class="game-matchup">
+              <span class="game-team">Fresno Inferno FC</span>
+              <span class="game-vs">VS</span>
+              <span class="game-team home">Southvalley Thunder</span>
+            </div>
+            <div class="game-meta">
+              <span class="game-venue">&#128205; Fresno National Stadium</span>
+              <span class="game-competition">Central Valley League</span>
+              <span style="font-size:0.75rem;color:var(--white-faint);">Away</span>
+            </div>
+          </div>
+          <div class="game-result">
+            <div class="game-score">2 &ndash; 1</div>
+            <div class="game-outcome outcome-loss">Loss</div>
+          </div>
+        </div>
+
+      </div><!-- /games-list -->
+    </div>
+  </section>
+
+  <!-- STANDINGS -->
+  <section class="standings">
+    <div class="container">
+      <div class="section-center animate-in">
+        <div class="section-label">2026 Season</div>
+        <h2 class="section-title">League Standings</h2>
+        <div class="divider divider-center"></div>
+        <p class="section-subtitle">Central Valley League — Top 8</p>
+      </div>
+      <div class="table-wrapper animate-in">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Club</th>
+              <th>P</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="thunder-row">
+              <td class="standings-pos top">1</td>
+              <td class="standings-club">&#9889; Southvalley Thunder</td>
+              <td>18</td><td>14</td><td>2</td><td>2</td>
+              <td>47</td><td>18</td><td>+29</td>
+              <td class="standings-pts">44</td>
+            </tr>
+            <tr>
+              <td class="standings-pos top">2</td>
+              <td class="standings-club">Fresno Inferno FC</td>
+              <td>18</td><td>12</td><td>3</td><td>3</td>
+              <td>41</td><td>22</td><td>+19</td>
+              <td class="standings-pts">39</td>
+            </tr>
+            <tr>
+              <td class="standings-pos top">3</td>
+              <td class="standings-club">Visalia Predators</td>
+              <td>18</td><td>10</td><td>4</td><td>4</td>
+              <td>35</td><td>28</td><td>+7</td>
+              <td class="standings-pts">34</td>
+            </tr>
+            <tr>
+              <td class="standings-pos">4</td>
+              <td class="standings-club">Bakersfield Hawks</td>
+              <td>18</td><td>8</td><td>5</td><td>5</td>
+              <td>30</td><td>30</td><td>0</td>
+              <td class="standings-pts">29</td>
+            </tr>
+            <tr>
+              <td class="standings-pos">5</td>
+              <td class="standings-club">Modesto Rangers</td>
+              <td>18</td><td>7</td><td>3</td><td>8</td>
+              <td>28</td><td>33</td><td>-5</td>
+              <td class="standings-pts">24</td>
+            </tr>
+            <tr>
+              <td class="standings-pos">6</td>
+              <td class="standings-club">Valley Kings FC</td>
+              <td>18</td><td>6</td><td>3</td><td>9</td>
+              <td>25</td><td>37</td><td>-12</td>
+              <td class="standings-pts">21</td>
+            </tr>
+            <tr>
+              <td class="standings-pos">7</td>
+              <td class="standings-club">Stockton United</td>
+              <td>18</td><td>4</td><td>4</td><td>10</td>
+              <td>20</td><td>40</td><td>-20</td>
+              <td class="standings-pts">16</td>
+            </tr>
+            <tr>
+              <td class="standings-pos">8</td>
+              <td class="standings-club">Tulare City FC</td>
+              <td>18</td><td>3</td><td>1</td><td>14</td>
+              <td>16</td><td>55</td><td>-39</td>
+              <td class="standings-pts">10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Southvalley Thunder</div>
+          <div class="footer-brand-sub">Bakersfield Soccer Club</div>
+          <p class="footer-brand-desc">Born from the valley. Driven by thunder. Representing Bakersfield with passion, precision, and pride since 2018.</p>
+        </div>
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Club</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Coaching Staff</a></li>
+            <li><a href="#">Youth Program</a></li>
+            <li><a href="#">Sponsorship</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a href="contact.html">Get In Touch</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter / X</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved. Bakersfield, CA.</p>
+        <p class="footer-copy">Built with <span>&#9889;</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
