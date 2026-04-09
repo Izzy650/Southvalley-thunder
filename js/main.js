@@ -1,205 +1,79 @@
 /* ============================================
-   SOUTHVALLEY THUNDER - MAIN JS
+   SOUTHVALLEY THUNDER — MAIN JS
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* === NAV SCROLL === */
   const nav = document.querySelector('.nav');
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 
   /* === MOBILE MENU === */
-  if (navToggle) {
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      const spans = navToggle.querySelectorAll('span');
-      spans[0].style.transform = navLinks.classList.contains('open') ? 'rotate(45deg) translate(5px, 5px)' : '';
-      spans[1].style.opacity = navLinks.classList.contains('open') ? '0' : '1';
-      spans[2].style.transform = navLinks.classList.contains('open') ? 'rotate(-45deg) translate(5px, -5px)' : '';
+  const toggle = document.querySelector('.nav-toggle');
+  const menu   = document.querySelector('.nav-menu');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      const [a, b, c] = toggle.querySelectorAll('span');
+      const open = menu.classList.contains('open');
+      a.style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
+      b.style.opacity   = open ? '0' : '1';
+      c.style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
     });
+    document.querySelectorAll('.nav-link, .nav-btn').forEach(l =>
+      l.addEventListener('click', () => menu.classList.remove('open'))
+    );
   }
 
-  /* Close mobile menu on link click */
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (navLinks) navLinks.classList.remove('open');
-    });
+  /* === ACTIVE NAV === */
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(l => {
+    if (l.getAttribute('href') === page) l.classList.add('active');
   });
 
-  /* === ACTIVE NAV LINK === */
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-      link.classList.add('active');
-    }
-  });
-
-  /* === SCROLL ANIMATIONS === */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, entry.target.dataset.delay || 0);
-        observer.unobserve(entry.target);
+  /* === SCROLL REVEALS === */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  document.querySelectorAll('.animate-in').forEach((el, i) => {
-    if (!el.dataset.delay) el.dataset.delay = i * 80;
-    observer.observe(el);
-  });
-
-  /* === COUNTER ANIMATION === */
+  /* === COUNT-UP === */
   const counters = document.querySelectorAll('[data-count]');
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
-      }
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); }
     });
   }, { threshold: 0.5 });
+  counters.forEach(c => cio.observe(c));
 
-  counters.forEach(counter => counterObserver.observe(counter));
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.count);
-    const duration = 1800;
+  function countUp(el) {
+    const target = +el.dataset.count;
+    const dur = 1600;
     const start = performance.now();
-
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(eased * target);
-      if (progress < 1) requestAnimationFrame(update);
+    (function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+      if (p < 1) requestAnimationFrame(tick);
       else el.textContent = target;
-    }
-    requestAnimationFrame(update);
+    })(start);
   }
 
-  /* === GLOW CURSOR TRAIL (subtle) === */
-  const trail = document.createElement('div');
-  trail.style.cssText = `
-    position: fixed;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 163, 255, 0.06), transparent 70%);
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: left 0.3s ease, top 0.3s ease;
-  `;
-  document.body.appendChild(trail);
-
-  document.addEventListener('mousemove', (e) => {
-    trail.style.left = e.clientX + 'px';
-    trail.style.top = e.clientY + 'px';
-  });
-
-  /* === PARTICLE EFFECT === */
-  const canvas = document.createElement('canvas');
-  const hero = document.querySelector('.hero') || document.querySelector('.page-hero');
-
-  if (hero) {
-    canvas.style.cssText = `
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    `;
-    hero.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animId;
-
-    function resizeCanvas() {
-      canvas.width = hero.offsetWidth;
-      canvas.height = hero.offsetHeight;
-    }
-
-    function createParticle() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: -Math.random() * 0.6 - 0.2,
-        size: Math.random() * 2 + 0.5,
-        alpha: Math.random() * 0.6 + 0.1,
-        color: Math.random() > 0.5 ? '0, 163, 255' : '0, 200, 255',
-      };
-    }
-
-    function initParticles() {
-      particles = Array.from({ length: 60 }, createParticle);
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.001;
-
-        if (p.y < 0 || p.alpha <= 0) {
-          particles[i] = createParticle();
-          particles[i].y = canvas.height;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = `rgba(${p.color}, 0.8)`;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      animId = requestAnimationFrame(animateParticles);
-    }
-
-    resizeCanvas();
-    initParticles();
-    animateParticles();
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initParticles();
-    });
-  }
-
-  /* === SCHEDULE FILTER === */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const gameCards = document.querySelectorAll('.game-card');
-
-  filterBtns.forEach(btn => {
+  /* === SCHEDULE AGE FILTER === */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      const bar = btn.closest('.filter-bar');
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
-
-      gameCards.forEach(card => {
-        if (filter === 'all' || card.dataset.type === filter) {
-          card.style.display = '';
-          card.style.animation = 'fadeInUp 0.4s ease forwards';
-        } else {
-          card.style.display = 'none';
-        }
+      const age = btn.dataset.age;
+      document.querySelectorAll('.game-row').forEach(row => {
+        row.style.display = (age === 'all' || row.dataset.age === age) ? '' : 'none';
       });
     });
   });
@@ -207,22 +81,38 @@ document.addEventListener('DOMContentLoaded', () => {
   /* === CONTACT FORM === */
   const form = document.querySelector('.contact-form');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      const original = btn.textContent;
+      const btn = form.querySelector('[type=submit]');
       btn.textContent = 'Message Sent!';
-      btn.style.background = 'linear-gradient(135deg, #00884A, #00C86A)';
-      btn.style.borderColor = '#00C86A';
-      btn.style.boxShadow = '0 0 20px rgba(0, 200, 106, 0.5)';
+      btn.style.background = '#1a7a4a';
+      btn.style.borderColor = '#2ac47a';
       setTimeout(() => {
-        btn.textContent = original;
+        btn.textContent = 'Send Message';
         btn.style.background = '';
         btn.style.borderColor = '';
-        btn.style.boxShadow = '';
         form.reset();
       }, 3000);
     });
+  }
+
+  /* === COUNTDOWN === */
+  const cd = document.getElementById('countdown');
+  if (cd) {
+    const target = new Date('2026-04-19T15:00:00');
+    function tick() {
+      const diff = target - new Date();
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      ['d','h','m','s'].forEach((k,i) => {
+        const el = document.getElementById('cd-'+k);
+        if (el) el.textContent = String([d,h,m,s][i]).padStart(2,'0');
+      });
+    }
+    tick(); setInterval(tick, 1000);
   }
 
 });

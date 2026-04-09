@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teams | Southvalley Thunder</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .team-card { padding: 1.75rem; cursor: default; }
+    .team-age  {
+      font-family: var(--font-head);
+      font-size: 2.5rem; font-weight: 900;
+      color: var(--white); text-shadow: var(--glow-text);
+      line-height: 1; margin-bottom: 0.35rem;
+      transition: color var(--transition);
+    }
+    .card:hover .team-age { color: var(--electric); }
+    .team-label { font-family: var(--font-head); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--off-white); margin-bottom: 0.75rem; }
+    .team-sep   { width: 32px; height: 1px; background: var(--electric); box-shadow: 0 0 6px var(--electric); margin-bottom: 0.75rem; }
+    .team-detail { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .team-detail span { color: var(--off-white); }
+    .team-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: var(--font-head); font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--electric); margin-top: 1.1rem;
+      transition: gap var(--transition);
+    }
+    .card:hover .team-link { gap: 0.6rem; }
+
+    .gender-tabs {
+      display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-badge">⚡</div>
+        <div class="nav-logo-text">
+          <div class="nav-logo-name">Southvalley Thunder</div>
+          <div class="nav-logo-tag">Bakersfield, CA</div>
+        </div>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="about.html"    class="nav-link">About</a></li>
+        <li><a href="teams.html"    class="nav-link">Teams</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+        <li><a href="register.html" class="nav-btn">Register</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--off-white)">Teams</span></div>
+      <div class="eyebrow">2026 Season</div>
+      <h1 class="page-hero-title">Our <span style="color:var(--electric)">Teams</span></h1>
+      <p class="page-hero-desc">Boys and Girls programs from U-8 through U-19. Find your team below.</p>
+    </div>
+  </section>
+
+  <!-- BOYS TEAMS -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <div class="eyebrow">Boys Programs</div>
+        <h2 class="section-title">Boys <span>Teams</span></h2>
+        <div class="rule"></div>
+      </div>
+      <div class="grid-4 reveal">
+        <div class="card team-card">
+          <div class="team-age">U-8</div>
+          <div class="team-label">Boys Under 8</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 7–8</div>
+            <div><span>Level:</span> Recreational</div>
+            <div><span>Coach:</span> Kevin Ortiz</div>
+            <div><span>Practice:</span> Sat 8:00 AM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-9</div>
+          <div class="team-label">Boys Under 9</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 8–9</div>
+            <div><span>Level:</span> Recreational</div>
+            <div><span>Coach:</span> Kevin Ortiz</div>
+            <div><span>Practice:</span> Sat 9:00 AM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-10</div>
+          <div class="team-label">Boys Under 10</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 9–10</div>
+            <div><span>Level:</span> Developmental</div>
+            <div><span>Coach:</span> Kevin Ortiz</div>
+            <div><span>Practice:</span> Tue &amp; Thu 5:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-11</div>
+          <div class="team-label">Boys Under 11</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 10–11</div>
+            <div><span>Level:</span> Developmental</div>
+            <div><span>Coach:</span> Maria Salazar</div>
+            <div><span>Practice:</span> Tue &amp; Thu 5:30 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-12</div>
+          <div class="team-label">Boys Under 12</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 11–12</div>
+            <div><span>Level:</span> Competitive</div>
+            <div><span>Coach:</span> Maria Salazar</div>
+            <div><span>Practice:</span> Tue &amp; Thu 6:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-13</div>
+          <div class="team-label">Boys Under 13</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 12–13</div>
+            <div><span>Level:</span> Competitive</div>
+            <div><span>Coach:</span> Maria Salazar</div>
+            <div><span>Practice:</span> Mon &amp; Wed 6:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-14</div>
+          <div class="team-label">Boys Under 14</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 13–14</div>
+            <div><span>Level:</span> Competitive</div>
+            <div><span>Coach:</span> Brian Thompson</div>
+            <div><span>Practice:</span> Mon &amp; Wed 6:30 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-15</div>
+          <div class="team-label">Boys Under 15</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 14–15</div>
+            <div><span>Level:</span> Competitive</div>
+            <div><span>Coach:</span> Brian Thompson</div>
+            <div><span>Practice:</span> Tue &amp; Thu 7:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-16</div>
+          <div class="team-label">Boys Under 16</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 15–16</div>
+            <div><span>Level:</span> Competitive</div>
+            <div><span>Coach:</span> Brian Thompson</div>
+            <div><span>Practice:</span> Tue &amp; Thu 7:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-17</div>
+          <div class="team-label">Boys Under 17</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 16–17</div>
+            <div><span>Level:</span> Elite</div>
+            <div><span>Coach:</span> Rafael Dominguez</div>
+            <div><span>Practice:</span> Mon, Wed &amp; Fri 6:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-18</div>
+          <div class="team-label">Boys Under 18</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 17–18</div>
+            <div><span>Level:</span> Elite</div>
+            <div><span>Coach:</span> Rafael Dominguez</div>
+            <div><span>Practice:</span> Mon, Wed &amp; Fri 6:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-19</div>
+          <div class="team-label">Boys Under 19</div>
+          <div class="team-sep"></div>
+          <div class="team-detail">
+            <div><span>Ages:</span> 18–19</div>
+            <div><span>Level:</span> Elite</div>
+            <div><span>Coach:</span> Rafael Dominguez</div>
+            <div><span>Practice:</span> Mon, Wed &amp; Fri 7:00 PM</div>
+          </div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIRLS TEAMS -->
+  <section class="section bg-mid">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <div class="eyebrow">Girls Programs</div>
+        <h2 class="section-title">Girls <span>Teams</span></h2>
+        <div class="rule"></div>
+      </div>
+      <div class="grid-4 reveal">
+        <div class="card team-card">
+          <div class="team-age">U-8</div>
+          <div class="team-label">Girls Under 8</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 7–8</div><div><span>Level:</span> Recreational</div><div><span>Coach:</span> Kevin Ortiz</div><div><span>Practice:</span> Sat 10:00 AM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-9</div>
+          <div class="team-label">Girls Under 9</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 8–9</div><div><span>Level:</span> Recreational</div><div><span>Coach:</span> Kevin Ortiz</div><div><span>Practice:</span> Sat 10:30 AM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-10</div>
+          <div class="team-label">Girls Under 10</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 9–10</div><div><span>Level:</span> Developmental</div><div><span>Coach:</span> Kevin Ortiz</div><div><span>Practice:</span> Tue &amp; Thu 5:00 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-11</div>
+          <div class="team-label">Girls Under 11</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 10–11</div><div><span>Level:</span> Developmental</div><div><span>Coach:</span> Maria Salazar</div><div><span>Practice:</span> Tue &amp; Thu 5:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-12</div>
+          <div class="team-label">Girls Under 12</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 11–12</div><div><span>Level:</span> Competitive</div><div><span>Coach:</span> Maria Salazar</div><div><span>Practice:</span> Mon &amp; Wed 5:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-13</div>
+          <div class="team-label">Girls Under 13</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 12–13</div><div><span>Level:</span> Competitive</div><div><span>Coach:</span> Maria Salazar</div><div><span>Practice:</span> Mon &amp; Wed 6:00 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-14</div>
+          <div class="team-label">Girls Under 14</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 13–14</div><div><span>Level:</span> Competitive</div><div><span>Coach:</span> Brian Thompson</div><div><span>Practice:</span> Tue &amp; Thu 6:00 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-15</div>
+          <div class="team-label">Girls Under 15</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 14–15</div><div><span>Level:</span> Competitive</div><div><span>Coach:</span> Brian Thompson</div><div><span>Practice:</span> Tue &amp; Thu 6:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-16</div>
+          <div class="team-label">Girls Under 16</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 15–16</div><div><span>Level:</span> Competitive</div><div><span>Coach:</span> Brian Thompson</div><div><span>Practice:</span> Mon &amp; Wed 7:00 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-17</div>
+          <div class="team-label">Girls Under 17</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 16–17</div><div><span>Level:</span> Elite</div><div><span>Coach:</span> Rafael Dominguez</div><div><span>Practice:</span> Mon, Wed &amp; Fri 5:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-18</div>
+          <div class="team-label">Girls Under 18</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 17–18</div><div><span>Level:</span> Elite</div><div><span>Coach:</span> Rafael Dominguez</div><div><span>Practice:</span> Mon, Wed &amp; Fri 5:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+        <div class="card team-card">
+          <div class="team-age">U-19</div>
+          <div class="team-label">Girls Under 19</div>
+          <div class="team-sep"></div>
+          <div class="team-detail"><div><span>Ages:</span> 18–19</div><div><span>Level:</span> Elite</div><div><span>Coach:</span> Rafael Dominguez</div><div><span>Practice:</span> Mon, Wed &amp; Fri 6:30 PM</div></div>
+          <a href="contact.html" class="team-link">Inquire →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRYOUTS CTA -->
+  <section class="section-sm bg-stripe">
+    <div class="container reveal" style="text-align:center;">
+      <div class="eyebrow">Join a Team</div>
+      <h2 class="section-title" style="margin-bottom:0.75rem;">Tryouts Open for <span>All Ages</span></h2>
+      <p style="color:var(--muted);max-width:480px;margin:0 auto 2rem;font-size:0.97rem;">We welcome players of all skill levels. Come out to tryouts and see if Southvalley Thunder is the right fit for your player.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="register.html" class="btn btn-primary">Register for Tryouts</a>
+        <a href="contact.html"  class="btn btn-outline">Ask a Question</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><div class="footer-logo-name">Southvalley Thunder</div><div class="footer-logo-tag">Bakersfield Youth Soccer Club</div><p class="footer-desc">Developing players and building character in Bakersfield, CA since 2018. U-8 through U-19.</p></div>
+        <div><div class="footer-heading">Club</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="teams.html">Teams</a></li><li><a href="register.html">Register</a></li></ul></div>
+        <div><div class="footer-heading">Info</div><ul class="footer-links"><li><a href="schedule.html">Schedule</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><a href="#">(661) 555-0187</a></li><li><a href="#">info@svthunder.com</a></li><li><a href="#">Bakersfield, CA</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved.</p><p class="footer-copy">Bakersfield, CA &bull; U-8 through U-19</p></div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

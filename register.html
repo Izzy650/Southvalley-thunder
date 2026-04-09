@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Southvalley Thunder</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .reg-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; align-items: start; }
+    @media (max-width: 900px) { .reg-layout { grid-template-columns: 1fr; } }
+
+    .form-card { background: var(--navy-mid); border: var(--border); border-radius: var(--radius); padding: 2.25rem; position: relative; overflow: hidden; }
+    .form-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background: linear-gradient(90deg, transparent, var(--electric), transparent); }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.1rem; }
+    .form-label { font-family: var(--font-head); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(0,0,0,0.25); border: var(--border); border-radius: 4px;
+      padding: 0.78rem 1rem; font-family: var(--font-body); font-size: 0.92rem;
+      color: var(--white); outline: none; width: 100%;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--electric); box-shadow: var(--glow-sm); }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-select option { background: var(--navy); color: var(--white); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    .info-box { background: var(--navy-mid); border: var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; }
+    .info-box-head { font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); margin-bottom: 1rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(79,163,232,0.12); }
+    .info-row { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(79,163,232,0.07); font-size: 0.87rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon { font-size: 1rem; min-width: 1.2rem; margin-top: 0.1rem; }
+    .info-label { font-family: var(--font-head); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--electric); margin-bottom: 0.2rem; }
+    .info-val  { color: var(--off-white); font-size: 0.87rem; }
+
+    .fee-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; margin-top: 0.5rem; }
+    .fee-table th { font-family: var(--font-head); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); padding: 0.5rem 0; text-align: left; border-bottom: 1px solid rgba(79,163,232,0.15); }
+    .fee-table td { padding: 0.5rem 0; color: var(--off-white); border-bottom: 1px solid rgba(79,163,232,0.07); }
+    .fee-table td:last-child { text-align: right; color: var(--white); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-badge">⚡</div>
+        <div class="nav-logo-text">
+          <div class="nav-logo-name">Southvalley Thunder</div>
+          <div class="nav-logo-tag">Bakersfield, CA</div>
+        </div>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="about.html"    class="nav-link">About</a></li>
+        <li><a href="teams.html"    class="nav-link">Teams</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+        <li><a href="register.html" class="nav-btn">Register</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--off-white)">Register</span></div>
+      <div class="eyebrow">Join the Club</div>
+      <h1 class="page-hero-title">Player <span style="color:var(--electric)">Registration</span></h1>
+      <p class="page-hero-desc">Register your player for the 2026–27 season. Open spots available across all age groups, U-8 through U-19.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="reg-layout">
+
+        <!-- FORM -->
+        <div class="reveal">
+          <div class="form-card">
+            <div class="eyebrow" style="margin-bottom:0.5rem;">Registration Form</div>
+            <h2 style="font-family:var(--font-head);font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">2026–27 Season</h2>
+            <p style="font-size:0.87rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.6;">Fill out the form below and a club representative will follow up within 48 hours to confirm your spot and provide payment information.</p>
+
+            <form class="contact-form" novalidate>
+              <div style="font-family:var(--font-head);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(79,163,232,0.12);">Parent / Guardian Info</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="pfirst">First Name</label>
+                  <input class="form-input" type="text" id="pfirst" placeholder="Jane" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="plast">Last Name</label>
+                  <input class="form-input" type="text" id="plast" placeholder="Smith" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="pemail">Email</label>
+                  <input class="form-input" type="email" id="pemail" placeholder="you@email.com" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="pphone">Phone</label>
+                  <input class="form-input" type="tel" id="pphone" placeholder="(661) 555-0000" />
+                </div>
+              </div>
+
+              <div style="font-family:var(--font-head);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin:1.25rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(79,163,232,0.12);">Player Info</div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="kfirst">Player First Name</label>
+                  <input class="form-input" type="text" id="kfirst" placeholder="Alex" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="klast">Player Last Name</label>
+                  <input class="form-input" type="text" id="klast" placeholder="Smith" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="kdob">Date of Birth</label>
+                  <input class="form-input" type="date" id="kdob" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="kgender">Gender</label>
+                  <select class="form-select" id="kgender">
+                    <option value="">Select...</option>
+                    <option>Boy</option>
+                    <option>Girl</option>
+                    <option>Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="kage">Age Group</label>
+                  <select class="form-select" id="kage">
+                    <option value="">Select age group...</option>
+                    <option>U-8</option><option>U-9</option><option>U-10</option>
+                    <option>U-11</option><option>U-12</option><option>U-13</option>
+                    <option>U-14</option><option>U-15</option><option>U-16</option>
+                    <option>U-17</option><option>U-18</option><option>U-19</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="kpos">Preferred Position</label>
+                  <select class="form-select" id="kpos">
+                    <option value="">Select...</option>
+                    <option>Goalkeeper</option>
+                    <option>Defender</option>
+                    <option>Midfielder</option>
+                    <option>Forward</option>
+                    <option>No preference</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="kexp">Soccer Experience</label>
+                <select class="form-select" id="kexp">
+                  <option value="">Select experience level...</option>
+                  <option>First time playing (no experience)</option>
+                  <option>1–2 years recreational</option>
+                  <option>3+ years recreational</option>
+                  <option>1–2 years competitive</option>
+                  <option>3+ years competitive</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="knotes">Additional Notes (optional)</label>
+                <textarea class="form-textarea" id="knotes" placeholder="Any information you'd like us to know..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;">Submit Registration ⚡</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- INFO SIDEBAR -->
+        <aside class="reveal">
+          <div class="info-box">
+            <div class="info-box-head">Registration Info</div>
+            <div class="info-row"><div class="info-icon">📅</div><div><div class="info-label">Deadline</div><div class="info-val">Rolling — spots fill up fast</div></div></div>
+            <div class="info-row"><div class="info-icon">📍</div><div><div class="info-label">Location</div><div class="info-val">Bakersfield Sports Village, Bakersfield CA</div></div></div>
+            <div class="info-row"><div class="info-icon">📞</div><div><div class="info-label">Questions?</div><div class="info-val">(661) 555-0187</div></div></div>
+            <div class="info-row"><div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-val">info@svthunder.com</div></div></div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-box-head">Season Fees</div>
+            <table class="fee-table">
+              <thead><tr><th>Age Group</th><th>Season Fee</th></tr></thead>
+              <tbody>
+                <tr><td>U-8 / U-9</td><td>$350</td></tr>
+                <tr><td>U-10 / U-11</td><td>$425</td></tr>
+                <tr><td>U-12 / U-13</td><td>$525</td></tr>
+                <tr><td>U-14 / U-15</td><td>$625</td></tr>
+                <tr><td>U-16 / U-17</td><td>$725</td></tr>
+                <tr><td>U-18 / U-19</td><td>$725</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:0.75rem;line-height:1.6;">Fees include jersey, training gear, and league fees. Payment plans available. Financial aid is offered — contact us.</p>
+          </div>
+
+          <div class="info-box">
+            <div class="info-box-head">What's Included</div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">Team jersey and training gear</div></div></div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">2x weekly practice sessions</div></div></div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">Full league schedule &amp; playoffs</div></div></div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">Certified coaching staff</div></div></div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">Player development report</div></div></div>
+            <div class="info-row"><div class="info-icon">✅</div><div><div class="info-val">Access to club tournaments</div></div></div>
+          </div>
+
+          <div style="text-align:center;">
+            <a href="contact.html" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;">Have Questions? Contact Us</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><div class="footer-logo-name">Southvalley Thunder</div><div class="footer-logo-tag">Bakersfield Youth Soccer Club</div><p class="footer-desc">Developing players and building character in Bakersfield, CA since 2018. U-8 through U-19.</p></div>
+        <div><div class="footer-heading">Club</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="teams.html">Teams</a></li><li><a href="register.html">Register</a></li></ul></div>
+        <div><div class="footer-heading">Info</div><ul class="footer-links"><li><a href="schedule.html">Schedule</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><a href="#">(661) 555-0187</a></li><li><a href="#">info@svthunder.com</a></li><li><a href="#">Bakersfield, CA</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved.</p><p class="footer-copy">Bakersfield, CA &bull; U-8 through U-19</p></div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

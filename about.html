@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Southvalley Thunder</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .mission-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+    .mission-text p  { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.97rem; }
+    .value-card { padding: 1.5rem; }
+    .value-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .value-title { font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; }
+    .value-desc  { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    .staff-card  { padding: 1.75rem; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .staff-avatar {
+      width: 64px; height: 64px; min-width: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--electric));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      border: 2px solid rgba(79,163,232,0.3);
+      box-shadow: var(--glow-sm);
+      transition: box-shadow var(--transition);
+    }
+    .card:hover .staff-avatar { box-shadow: var(--glow-md); }
+    .staff-role  { font-family: var(--font-head); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); margin-bottom: 0.3rem; }
+    .staff-name  { font-family: var(--font-head); font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; }
+    .staff-bio   { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item { display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid rgba(79,163,232,0.1); align-items: start; }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-year { font-family: var(--font-head); font-size: 1.2rem; font-weight: 900; color: var(--electric); text-shadow: var(--glow-text); }
+    .tl-title { font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); margin-bottom: 0.35rem; }
+    .tl-desc  { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+
+    @media (max-width: 768px) { .mission-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-badge">⚡</div>
+        <div class="nav-logo-text">
+          <div class="nav-logo-name">Southvalley Thunder</div>
+          <div class="nav-logo-tag">Bakersfield, CA</div>
+        </div>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="about.html"    class="nav-link">About</a></li>
+        <li><a href="teams.html"    class="nav-link">Teams</a></li>
+        <li><a href="schedule.html" class="nav-link">Schedule</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+        <li><a href="register.html" class="nav-btn">Register</a></li>
+      </ul>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--off-white)">About</span></div>
+      <div class="eyebrow">Our Story</div>
+      <h1 class="page-hero-title">About <span style="color:var(--electric)">Thunder</span></h1>
+      <p class="page-hero-desc">A Bakersfield soccer club built on development, community, and a love for the game.</p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section">
+    <div class="container">
+      <div class="mission-grid reveal">
+        <div class="mission-text">
+          <div class="eyebrow">Our Mission</div>
+          <h2 class="section-title">Developing Players. <span>Building Character.</span></h2>
+          <div class="rule"></div>
+          <p>Southvalley Thunder was founded in 2018 with a simple belief: every kid in Bakersfield deserves access to quality soccer training and a positive team environment.</p>
+          <p>We offer competitive and recreational programs for players ages U-8 through U-19. Our certified coaching staff focuses on technical skill development, tactical understanding, and above all, a love for the game.</p>
+          <p>Whether your child is just getting started or working toward a college or professional career, Thunder is a place where players grow at every level.</p>
+          <a href="register.html" class="btn btn-primary">Register Your Player</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="card" style="padding:1.5rem; display:flex; align-items:center; gap:1rem;">
+            <div style="font-size:2rem;">🎯</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--white);margin-bottom:0.3rem;">Player First</div>
+              <div style="font-size:0.85rem;color:var(--muted);">Every decision is made with the player's long-term development in mind.</div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem; display:flex; align-items:center; gap:1rem;">
+            <div style="font-size:2rem;">🤝</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--white);margin-bottom:0.3rem;">Community Rooted</div>
+              <div style="font-size:0.85rem;color:var(--muted);">We are proud to represent Bakersfield and give back through free clinics and outreach.</div>
+            </div>
+          </div>
+          <div class="card" style="padding:1.5rem; display:flex; align-items:center; gap:1rem;">
+            <div style="font-size:2rem;">📈</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--white);margin-bottom:0.3rem;">Results Driven</div>
+              <div style="font-size:0.85rem;color:var(--muted);">We compete at regional and state levels to give players high-quality competition.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section bg-mid">
+    <div class="container">
+      <div class="text-center reveal" style="margin-bottom:3rem;">
+        <div class="eyebrow">What We Stand For</div>
+        <h2 class="section-title">Our <span>Core Values</span></h2>
+        <div class="rule rule-center"></div>
+      </div>
+      <div class="grid-3 reveal">
+        <div class="card value-card">
+          <div class="value-icon">⚡</div>
+          <div class="value-title">Excellence</div>
+          <p class="value-desc">We hold our players and coaches to the highest standards — not just in results, but in attitude, effort, and sportsmanship every single day.</p>
+        </div>
+        <div class="card value-card">
+          <div class="value-icon">🤝</div>
+          <div class="value-title">Respect</div>
+          <p class="value-desc">Respect for teammates, opponents, coaches, and the game itself is non-negotiable at Southvalley Thunder.</p>
+        </div>
+        <div class="card value-card">
+          <div class="value-icon">💪</div>
+          <div class="value-title">Resilience</div>
+          <p class="value-desc">We teach players how to handle adversity, learn from failure, and bounce back stronger — skills that go far beyond the soccer field.</p>
+        </div>
+        <div class="card value-card">
+          <div class="value-icon">🌱</div>
+          <div class="value-title">Development</div>
+          <p class="value-desc">Long-term player development over short-term results. We build complete players, not just winners of youth tournaments.</p>
+        </div>
+        <div class="card value-card">
+          <div class="value-icon">🏘️</div>
+          <div class="value-title">Community</div>
+          <p class="value-desc">Thunder is more than a club — it's a family. We are deeply connected to Bakersfield and invest back into our community.</p>
+        </div>
+        <div class="card value-card">
+          <div class="value-icon">🎉</div>
+          <div class="value-title">Fun</div>
+          <p class="value-desc">Soccer should be enjoyable. We make sure every player — from U-8 to U-19 — has fun, makes friends, and loves the game.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COACHING STAFF -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center reveal" style="margin-bottom:3rem;">
+        <div class="eyebrow">The Team Behind the Team</div>
+        <h2 class="section-title">Coaching <span>Staff</span></h2>
+        <div class="rule rule-center"></div>
+      </div>
+      <div class="grid-2 reveal">
+        <div class="card staff-card">
+          <div class="staff-avatar">🏆</div>
+          <div>
+            <div class="staff-role">Director of Coaching</div>
+            <div class="staff-name">Rafael Dominguez</div>
+            <p class="staff-bio">15+ years coaching experience. UEFA B Licensed. Former semi-professional player with Central Valley SC. Led Thunder to back-to-back regional titles in 2023 and 2024. Oversees all age group programs.</p>
+          </div>
+        </div>
+        <div class="card staff-card">
+          <div class="staff-avatar">⚽</div>
+          <div>
+            <div class="staff-role">Head Coach — U-15 / U-16 / U-17</div>
+            <div class="staff-name">Brian Thompson</div>
+            <p class="staff-bio">USSF C Licensed. Specializes in tactical development and high-press systems. 10 years coaching youth and adult soccer throughout California.</p>
+          </div>
+        </div>
+        <div class="card staff-card">
+          <div class="staff-avatar">🎯</div>
+          <div>
+            <div class="staff-role">Head Coach — U-11 / U-12 / U-13 / U-14</div>
+            <div class="staff-name">Maria Salazar</div>
+            <p class="staff-bio">Former collegiate player and certified youth coach. Passionate about player development in the critical early competitive years. Known for building player confidence.</p>
+          </div>
+        </div>
+        <div class="card staff-card">
+          <div class="staff-avatar">🌱</div>
+          <div>
+            <div class="staff-role">Head Coach — U-8 / U-9 / U-10</div>
+            <div class="staff-name">Kevin Ortiz</div>
+            <p class="staff-bio">Specializes in foundational skills and making soccer fun for young players. Certified in AYSO and USSF grassroots development. Parents love his energy and patience with young kids.</p>
+          </div>
+        </div>
+        <div class="card staff-card">
+          <div class="staff-avatar">🧤</div>
+          <div>
+            <div class="staff-role">Goalkeeping Coach</div>
+            <div class="staff-name">Victor Salinas</div>
+            <p class="staff-bio">Former collegiate goalkeeper. Works with all age group goalkeepers across the club. Responsible for developing some of the best shot-stoppers in the Central Valley League.</p>
+          </div>
+        </div>
+        <div class="card staff-card">
+          <div class="staff-avatar">💪</div>
+          <div>
+            <div class="staff-role">Fitness &amp; Conditioning</div>
+            <div class="staff-name">Priya Anand</div>
+            <p class="staff-bio">Certified strength and conditioning specialist (CSCS) with a sports science background. Designs age-appropriate conditioning programs that keep players healthy and performing all season.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY TIMELINE -->
+  <section class="section bg-stripe">
+    <div class="container">
+      <div class="text-center reveal" style="margin-bottom:3rem;">
+        <div class="eyebrow">Our Journey</div>
+        <h2 class="section-title">Club <span>History</span></h2>
+        <div class="rule rule-center"></div>
+      </div>
+      <div style="max-width:700px;margin:0 auto;" class="reveal">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2018</div>
+            <div>
+              <div class="tl-title">Club Founded</div>
+              <p class="tl-desc">Southvalley Thunder is established in Bakersfield with just two age groups — U-10 and U-12 — and a group of passionate coaches and parents.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2019</div>
+            <div>
+              <div class="tl-title">Expansion to U-8 through U-16</div>
+              <p class="tl-desc">The club grows rapidly, adding six new age groups and surpassing 100 registered players in just our second season.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2021</div>
+            <div>
+              <div class="tl-title">First Regional Championship</div>
+              <p class="tl-desc">Our U-14 Boys team wins the Central Valley Regional title — the club's first major championship.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2023</div>
+            <div>
+              <div class="tl-title">Back-to-Back Titles</div>
+              <p class="tl-desc">U-16 Boys win the Central Valley League title, and we expand to full U-8 through U-19 programs for both boys and girls.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2025</div>
+            <div>
+              <div class="tl-title">New Training Facility</div>
+              <p class="tl-desc">Thunder partners with Bakersfield Sports Village for a permanent home facility, giving all teams access to professional-quality training grounds.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2026</div>
+            <div>
+              <div class="tl-title">Today</div>
+              <p class="tl-desc">280+ players across 12 age groups. Three championships. And just getting started.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo-name">Southvalley Thunder</div>
+          <div class="footer-logo-tag">Bakersfield Youth Soccer Club</div>
+          <p class="footer-desc">Developing players and building character in Bakersfield, CA since 2018. U-8 through U-19.</p>
+        </div>
+        <div><div class="footer-heading">Club</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="teams.html">Teams</a></li><li><a href="register.html">Register</a></li></ul></div>
+        <div><div class="footer-heading">Info</div><ul class="footer-links"><li><a href="schedule.html">Schedule</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><a href="#">(661) 555-0187</a></li><li><a href="#">info@svthunder.com</a></li><li><a href="#">Bakersfield, CA</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved.</p>
+        <p class="footer-copy">Bakersfield, CA &bull; U-8 through U-19</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

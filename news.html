@@ -4,597 +4,234 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>News | Southvalley Thunder</title>
-  <meta name="description" content="Latest news, updates, and stories from Southvalley Thunder FC." />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* === NEWS LAYOUT === */
-    .news-layout {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 3rem;
-      align-items: start;
-    }
+    .news-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
+    @media (max-width: 900px) { .news-layout { grid-template-columns: 1fr; } }
 
-    /* === FEATURED ARTICLE === */
-    .featured-article {
-      background: linear-gradient(160deg, rgba(0, 50, 140, 0.5), rgba(0, 15, 50, 0.8));
-      border: var(--border-glow);
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-      transition: all var(--transition);
-      margin-bottom: 2rem;
-    }
+    /* FEATURED */
+    .featured-card { background: var(--navy-mid); border: var(--border); border-radius: var(--radius); overflow: hidden; position: relative; transition: border-color var(--transition), box-shadow var(--transition); margin-bottom: 1.5rem; }
+    .featured-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background: linear-gradient(90deg, transparent, var(--electric), transparent); }
+    .featured-card:hover { border-color: rgba(79,163,232,0.5); box-shadow: var(--glow-sm); }
+    .featured-img { height: 220px; background: linear-gradient(160deg, var(--blue) 0%, var(--navy) 100%); display:flex; align-items:center; justify-content:center; font-size:5rem; }
+    .featured-body { padding: 1.75rem; }
 
-    .featured-article::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue-core), var(--blue-electric), var(--blue-glow));
-      box-shadow: 0 0 15px var(--blue-electric);
-    }
+    /* NEWS LIST ITEMS */
+    .article-list { display: flex; flex-direction: column; gap: 1rem; }
+    .article-item { background: var(--navy-mid); border: var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 70px 1fr; gap: 1rem; align-items: center; transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition); cursor: pointer; }
+    .article-item:hover { border-color: rgba(79,163,232,0.45); box-shadow: var(--glow-sm); transform: translateX(3px); }
+    .article-icon { width: 70px; height: 60px; background: var(--navy-light); border-radius: 6px; border: var(--border); display:flex; align-items:center; justify-content:center; font-size:1.6rem; transition: border-color var(--transition); }
+    .article-item:hover .article-icon { border-color: rgba(79,163,232,0.4); }
+    .article-cat  { font-family: var(--font-head); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); margin-bottom: 0.25rem; }
+    .article-title { font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); line-height: 1.4; margin-bottom: 0.2rem; transition: color var(--transition); }
+    .article-item:hover .article-title { color: var(--electric); }
+    .article-date  { font-size: 0.72rem; color: var(--muted); }
 
-    .featured-article:hover {
-      border-color: rgba(0, 200, 255, 0.7);
-      box-shadow: var(--glow-md);
-    }
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-box { background: var(--navy-mid); border: var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .sidebar-head { font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--electric); padding-bottom: 0.75rem; border-bottom: 1px solid rgba(79,163,232,0.12); margin-bottom: 1rem; }
+    .sidebar-link { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(79,163,232,0.08); font-size: 0.87rem; color: var(--muted); transition: color var(--transition); }
+    .sidebar-link:last-child { border-bottom: none; }
+    .sidebar-link:hover { color: var(--white); }
+    .sidebar-link span { color: var(--electric); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-family: var(--font-head); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(79,163,232,0.06); border: 1px solid rgba(79,163,232,0.15); padding: 0.3rem 0.7rem; border-radius: 3px; cursor: pointer; transition: all var(--transition); }
+    .tag:hover { color: var(--white); border-color: var(--electric); box-shadow: var(--glow-sm); }
+    .news-input { width:100%; background: rgba(0,0,0,0.3); border: var(--border); border-radius: 4px; padding: 0.7rem 1rem; color: var(--white); font-family: var(--font-body); font-size: 0.88rem; outline: none; transition: border-color var(--transition), box-shadow var(--transition); }
+    .news-input::placeholder { color: var(--muted); }
+    .news-input:focus { border-color: var(--electric); box-shadow: var(--glow-sm); }
 
-    .featured-img {
-      height: 280px;
-      background: linear-gradient(160deg, rgba(0, 60, 180, 0.7), rgba(0, 11, 26, 0.9));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .featured-img::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(0, 11, 26, 0.9) 0%, transparent 60%);
-    }
-
-    .featured-badge {
-      position: absolute;
-      top: 1.5rem;
-      left: 1.5rem;
-      z-index: 2;
-      font-family: var(--font-head);
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--white);
-      background: linear-gradient(135deg, var(--blue-core), var(--blue-bright));
-      padding: 0.35rem 1rem;
-      border-radius: 2px;
-      box-shadow: var(--glow-sm);
-    }
-
-    .featured-body { padding: 2rem; }
-
-    .article-cat {
-      display: inline-block;
-      font-family: var(--font-head);
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blue-electric);
-      background: rgba(0,163,255,0.1);
-      border: 1px solid rgba(0,163,255,0.2);
-      padding: 0.25rem 0.75rem;
-      border-radius: 2px;
-      margin-bottom: 0.75rem;
-    }
-
-    .article-date {
-      font-size: 0.75rem;
-      color: var(--white-faint);
-      letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .article-title {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--white);
-      line-height: 1.3;
-      margin-bottom: 1rem;
-      transition: color var(--transition), text-shadow var(--transition);
-    }
-
-    .featured-article:hover .article-title {
-      color: var(--blue-glow);
-      text-shadow: var(--glow-text);
-    }
-
-    .article-excerpt {
-      font-size: 0.95rem;
-      color: var(--white-faint);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .article-read {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-head);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--blue-electric);
-      border: 1px solid rgba(0,163,255,0.3);
-      padding: 0.65rem 1.5rem;
-      border-radius: 3px;
-      transition: all var(--transition);
-    }
-
-    .article-read:hover {
-      background: rgba(0,163,255,0.1);
-      box-shadow: var(--glow-sm);
-      color: var(--white);
-      text-shadow: none;
-      gap: 0.8rem;
-    }
-
-    /* === NEWS LIST === */
-    .news-list { display: flex; flex-direction: column; gap: 1rem; }
-
-    .news-item {
-      background: linear-gradient(135deg, rgba(0, 40, 112, 0.4), rgba(0, 15, 50, 0.7));
-      border: var(--border-glow);
-      border-radius: 6px;
-      padding: 1.5rem;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.25rem;
-      align-items: start;
-      position: relative;
-      transition: all var(--transition);
-      cursor: pointer;
-    }
-
-    .news-item::before {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 2px;
-      background: var(--blue-electric);
-      box-shadow: 0 0 8px var(--blue-electric);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .news-item:hover {
-      border-color: rgba(0, 200, 255, 0.6);
-      box-shadow: var(--glow-sm);
-      transform: translateX(3px);
-    }
-
-    .news-item:hover::before { opacity: 1; }
-
-    .news-item-icon {
-      width: 80px;
-      height: 70px;
-      background: linear-gradient(135deg, rgba(0, 60, 170, 0.6), rgba(0, 20, 60, 0.8));
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      border: 1px solid rgba(0,200,255,0.15);
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .news-item:hover .news-item-icon {
-      border-color: rgba(0,200,255,0.4);
-      box-shadow: var(--glow-sm);
-    }
-
-    .news-item-cat {
-      font-family: var(--font-head);
-      font-size: 0.58rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blue-electric);
-      margin-bottom: 0.3rem;
-    }
-
-    .news-item-title {
-      font-family: var(--font-head);
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--white);
-      line-height: 1.4;
-      margin-bottom: 0.3rem;
-      transition: color var(--transition), text-shadow var(--transition);
-    }
-
-    .news-item:hover .news-item-title {
-      color: var(--blue-glow);
-      text-shadow: 0 0 8px rgba(0,200,255,0.5);
-    }
-
-    .news-item-date {
-      font-size: 0.72rem;
-      color: var(--white-faint);
-    }
-
-    /* === SIDEBAR === */
-    .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-
-    .sidebar-card {
-      background: linear-gradient(135deg, rgba(0, 40, 112, 0.4), rgba(0, 15, 50, 0.7));
-      border: var(--border-glow);
-      border-radius: 6px;
-      padding: 1.5rem;
-    }
-
-    .sidebar-title {
-      font-family: var(--font-head);
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blue-electric);
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(0,200,255,0.15);
-    }
-
-    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-
-    .sidebar-tag {
-      font-family: var(--font-head);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--white-faint);
-      background: rgba(0,163,255,0.06);
-      border: 1px solid rgba(0,200,255,0.15);
-      padding: 0.35rem 0.8rem;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .sidebar-tag:hover {
-      color: var(--white);
-      border-color: var(--blue-electric);
-      box-shadow: var(--glow-sm);
-      background: rgba(0,163,255,0.12);
-    }
-
-    .quick-links li {
-      border-bottom: 1px solid rgba(0,200,255,0.08);
-    }
-
-    .quick-links li:last-child { border-bottom: none; }
-
-    .quick-links a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 0;
-      font-size: 0.88rem;
-      color: var(--white-faint);
-      transition: color var(--transition), padding-left var(--transition);
-    }
-
-    .quick-links a:hover {
-      color: var(--white);
-      text-shadow: var(--glow-text);
-      padding-left: 6px;
-    }
-
-    .quick-links .arrow { color: var(--blue-electric); font-size: 0.8rem; }
-
-    /* Newsletter */
-    .newsletter-form { display: flex; flex-direction: column; gap: 0.75rem; }
-
-    .newsletter-input {
-      background: rgba(0,163,255,0.06);
-      border: 1px solid rgba(0,200,255,0.2);
-      border-radius: 3px;
-      padding: 0.75rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      color: var(--white);
-      outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .newsletter-input::placeholder { color: var(--white-faint); }
-
-    .newsletter-input:focus {
-      border-color: var(--blue-electric);
-      box-shadow: var(--glow-sm);
-    }
-
-    @media (max-width: 1024px) {
-      .news-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .news-item {
-        grid-template-columns: 1fr;
-      }
-      .news-item-icon { display: none; }
-    }
+    /* ARTICLE SHARED */
+    .art-cat  { font-family: var(--font-head); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--electric); margin-bottom: 0.4rem; }
+    .art-date { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .art-title { font-family: var(--font-head); font-size: 1.15rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--white); line-height: 1.3; margin-bottom: 0.75rem; transition: color var(--transition); }
+    .featured-card:hover .art-title { color: var(--electric); }
+    .art-body  { font-size: 0.92rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+    .art-more  { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--electric); border: 1px solid rgba(79,163,232,0.25); padding: 0.55rem 1.25rem; border-radius: 3px; transition: all var(--transition); }
+    .art-more:hover { background: rgba(79,163,232,0.1); box-shadow: var(--glow-sm); color: var(--white); }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">⚡</div>
+        <div class="nav-logo-badge">⚡</div>
         <div class="nav-logo-text">
-          <span class="nav-logo-name">Southvalley</span>
-          <span class="nav-logo-sub">Thunder FC</span>
+          <div class="nav-logo-name">Southvalley Thunder</div>
+          <div class="nav-logo-tag">Bakersfield, CA</div>
         </div>
       </a>
-      <ul class="nav-links" id="navLinks">
+      <ul class="nav-menu" id="navMenu">
         <li><a href="index.html"    class="nav-link">Home</a></li>
-        <li><a href="team.html"     class="nav-link">Team</a></li>
+        <li><a href="about.html"    class="nav-link">About</a></li>
+        <li><a href="teams.html"    class="nav-link">Teams</a></li>
         <li><a href="schedule.html" class="nav-link">Schedule</a></li>
-        <li><a href="news.html"     class="nav-link active">News</a></li>
+        <li><a href="news.html"     class="nav-link">News</a></li>
         <li><a href="contact.html"  class="nav-link">Contact</a></li>
-        <li><a href="contact.html"  class="nav-cta">Join Now</a></li>
+        <li><a href="register.html" class="nav-btn">Register</a></li>
       </ul>
-      <div class="nav-toggle" id="navToggle">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
     </div>
   </nav>
 
-  <!-- PAGE HERO -->
   <section class="page-hero">
-    <div class="page-hero-grid"></div>
-    <div class="container" style="position:relative;z-index:2;">
-      <div class="breadcrumb">
-        <a href="index.html">Home</a>
-        <span class="breadcrumb-sep">&#8250;</span>
-        <span>News</span>
-      </div>
-      <div class="section-label">Thunder Media</div>
-      <h1 class="page-hero-title">Latest News</h1>
-      <p class="page-hero-desc">Club updates, match reports, player stories, and everything happening at Southvalley Thunder.</p>
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--off-white)">News</span></div>
+      <div class="eyebrow">Thunder Media</div>
+      <h1 class="page-hero-title">Club <span style="color:var(--electric)">News</span></h1>
+      <p class="page-hero-desc">Updates, match reports, announcements, and stories from Southvalley Thunder.</p>
     </div>
   </section>
 
-  <!-- NEWS CONTENT -->
   <section class="section">
     <div class="container">
       <div class="news-layout">
-
-        <!-- MAIN CONTENT -->
+        <!-- MAIN -->
         <div>
-          <!-- Featured -->
-          <div class="section-label animate-in">Featured Story</div>
-          <article class="featured-article animate-in">
-            <div class="featured-img">
-              &#9889;
-              <div class="featured-badge">&#128293; Top Story</div>
-            </div>
+          <div class="eyebrow reveal" style="margin-bottom:1rem;">Featured Story</div>
+
+          <div class="featured-card reveal">
+            <div class="featured-img">⚡</div>
             <div class="featured-body">
-              <div class="article-cat">Club News</div>
-              <div class="article-date">
-                <span>April 5, 2026</span>
-                <span style="color:rgba(0,200,255,0.3);">|</span>
-                <span>Match Report</span>
-              </div>
-              <h2 class="article-title">Thunder Clinch Top Spot in Central Valley League With Dominant 3–1 Victory</h2>
-              <p class="article-excerpt">
-                Southvalley Thunder delivered a commanding performance at Bakersfield Sports Village, dismantling Valley Kings FC 3–1 in what was arguably the team's finest display of the 2026 season. Luis Herrera opened the scoring in the 12th minute with a clinical finish, Marco Silva doubled the lead before halftime with a stunning long-range effort, and Elijah Washington sealed the result in the 71st minute. The win puts Thunder seven points clear at the top of the Central Valley League with just four games remaining.
-              </p>
-              <p class="article-excerpt">
-                "This team has been incredible all season," said head coach Rafael Dominguez. "The way they press, the way they move the ball — every single player is committed to the system. We're not done yet."
-              </p>
-              <a href="#" class="article-read">Continue Reading &#8594;</a>
+              <div class="art-cat">Club News</div>
+              <div class="art-date">April 5, 2026</div>
+              <h2 class="art-title">U-16 Boys Clinch First Place With Dominant 3–1 Win Over Valley Kings</h2>
+              <p class="art-body">Southvalley Thunder's U-16 Boys delivered a commanding performance at Bakersfield Sports Village, defeating Valley Kings FC 3–1 in one of their best displays of the season. The win puts them seven points clear at the top of the Central Valley League table with four games to play. Head coach Brian Thompson credited the team's pressing game and clinical finishing.</p>
+              <a href="#" class="art-more">Read Full Story →</a>
             </div>
-          </article>
+          </div>
 
-          <!-- News List -->
-          <div class="section-label animate-in" style="margin-top:2rem;">More Stories</div>
-          <div class="news-list animate-in">
+          <div class="eyebrow reveal" style="margin-bottom:1rem;">More News</div>
 
-            <article class="news-item">
-              <div class="news-item-icon">&#128100;</div>
+          <div class="article-list reveal">
+            <div class="article-item">
+              <div class="article-icon">📋</div>
               <div>
-                <div class="news-item-cat">Transfers</div>
-                <h3 class="news-item-title">Club Signs Three New Players for Spring Roster</h3>
-                <div class="news-item-date">March 28, 2026</div>
+                <div class="article-cat">Tryouts</div>
+                <div class="article-title">Spring Tryouts Open for All Age Groups — U-8 Through U-19</div>
+                <div class="article-date">March 20, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#127954;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">🏘️</div>
               <div>
-                <div class="news-item-cat">Community</div>
-                <h3 class="news-item-title">Free Youth Clinic Returns to Bakersfield This Summer</h3>
-                <div class="news-item-date">March 15, 2026</div>
+                <div class="article-cat">Community</div>
+                <div class="article-title">Free Summer Clinic Coming Back to Bakersfield This July</div>
+                <div class="article-date">March 10, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#128200;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">⚽</div>
               <div>
-                <div class="news-item-cat">Match Report</div>
-                <h3 class="news-item-title">Herrera Hat-trick Destroys Tulare City in 4–0 Rout</h3>
-                <div class="news-item-date">March 15, 2026</div>
+                <div class="article-cat">Match Report</div>
+                <div class="article-title">U-14 Boys Crush Tulare City 5–0 in Statement Win</div>
+                <div class="article-date">March 8, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#9883;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">🏆</div>
               <div>
-                <div class="news-item-cat">Club</div>
-                <h3 class="news-item-title">Coach Dominguez Extends Contract Through 2028 Season</h3>
-                <div class="news-item-date">March 10, 2026</div>
+                <div class="article-cat">Awards</div>
+                <div class="article-title">Coach Rafael Dominguez Named Central Valley Coach of the Month</div>
+                <div class="article-date">March 1, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#127942;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">📝</div>
               <div>
-                <div class="news-item-cat">Awards</div>
-                <h3 class="news-item-title">Marco Silva Named Central Valley League Player of the Month</h3>
-                <div class="news-item-date">March 1, 2026</div>
+                <div class="article-cat">Registration</div>
+                <div class="article-title">2026–27 Season Registration Now Open — Spots Filling Fast</div>
+                <div class="article-date">February 20, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#9889;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">⚡</div>
               <div>
-                <div class="news-item-cat">Match Report</div>
-                <h3 class="news-item-title">Thunder Draw 2–2 in Fierce Valley Derby vs. Bakersfield Hawks</h3>
-                <div class="news-item-date">February 22, 2026</div>
+                <div class="article-cat">Match Report</div>
+                <div class="article-title">U-15 Girls Hand Visalia Predators 4–1 Defeat in Dominant Display</div>
+                <div class="article-date">February 15, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#128101;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">🤝</div>
               <div>
-                <div class="news-item-cat">Community</div>
-                <h3 class="news-item-title">Thunder Open Trials for 2026–27 Season — All Ages Welcome</h3>
-                <div class="news-item-date">February 14, 2026</div>
+                <div class="article-cat">Partnership</div>
+                <div class="article-title">Thunder Signs New Training Agreement With Bakersfield Sports Village</div>
+                <div class="article-date">February 3, 2026</div>
               </div>
-            </article>
-
-            <article class="news-item">
-              <div class="news-item-icon">&#128197;</div>
+            </div>
+            <div class="article-item">
+              <div class="article-icon">👶</div>
               <div>
-                <div class="news-item-cat">Club News</div>
-                <h3 class="news-item-title">New Training Facility Partnership Announced with Bakersfield Sports Village</h3>
-                <div class="news-item-date">February 3, 2026</div>
+                <div class="article-cat">Club News</div>
+                <div class="article-title">U-8 and U-9 Programs Expanded for Spring 2026 Season</div>
+                <div class="article-date">January 25, 2026</div>
               </div>
-            </article>
-
-          </div><!-- /news-list -->
+            </div>
+          </div>
         </div>
 
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside class="sidebar reveal">
+          <div class="sidebar-box">
+            <div class="sidebar-head">Search</div>
+            <input class="news-input" type="text" placeholder="Search articles..." />
+          </div>
 
-          <!-- Search -->
-          <div class="sidebar-card animate-in">
-            <div class="sidebar-title">Search News</div>
-            <div style="display:flex;gap:0.5rem;">
-              <input type="text" class="newsletter-input" placeholder="Search articles..." style="flex:1;" />
-              <button class="btn btn-primary btn-sm" style="white-space:nowrap;">Go</button>
+          <div class="sidebar-box">
+            <div class="sidebar-head">Quick Links</div>
+            <a href="teams.html"    class="sidebar-link">View Teams <span>→</span></a>
+            <a href="schedule.html" class="sidebar-link">Full Schedule <span>→</span></a>
+            <a href="register.html" class="sidebar-link">Register Now <span>→</span></a>
+            <a href="contact.html"  class="sidebar-link">Contact Us <span>→</span></a>
+          </div>
+
+          <div class="sidebar-box">
+            <div class="sidebar-head">Categories</div>
+            <div class="tag-cloud">
+              <span class="tag">Club News</span>
+              <span class="tag">Match Reports</span>
+              <span class="tag">Tryouts</span>
+              <span class="tag">Community</span>
+              <span class="tag">Awards</span>
+              <span class="tag">Youth</span>
+              <span class="tag">Registration</span>
+              <span class="tag">Partnership</span>
             </div>
           </div>
 
-          <!-- Categories -->
-          <div class="sidebar-card animate-in">
-            <div class="sidebar-title">Categories</div>
-            <div class="sidebar-tags">
-              <span class="sidebar-tag">Club News</span>
-              <span class="sidebar-tag">Match Reports</span>
-              <span class="sidebar-tag">Transfers</span>
-              <span class="sidebar-tag">Community</span>
-              <span class="sidebar-tag">Awards</span>
-              <span class="sidebar-tag">Youth</span>
-              <span class="sidebar-tag">Interviews</span>
-              <span class="sidebar-tag">Training</span>
-            </div>
-          </div>
-
-          <!-- Quick Links -->
-          <div class="sidebar-card animate-in">
-            <div class="sidebar-title">Quick Links</div>
-            <ul class="quick-links">
-              <li><a href="team.html">Meet the Roster <span class="arrow">&#8594;</span></a></li>
-              <li><a href="schedule.html">View Full Schedule <span class="arrow">&#8594;</span></a></li>
-              <li><a href="contact.html">Join the Club <span class="arrow">&#8594;</span></a></li>
-              <li><a href="#">Watch Match Highlights <span class="arrow">&#8594;</span></a></li>
-            </ul>
-          </div>
-
-          <!-- Next Match -->
-          <div class="sidebar-card animate-in" style="text-align:center; border-color: rgba(0,200,255,0.4); box-shadow: var(--glow-sm);">
-            <div class="sidebar-title">Next Match</div>
-            <div style="font-size:1.8rem;margin-bottom:0.5rem;">&#9889; VS &#128293;</div>
-            <div style="font-family:var(--font-head);font-size:0.8rem;color:var(--white);margin-bottom:0.25rem;">Thunder vs. Fresno Inferno</div>
-            <div style="font-size:0.75rem;color:var(--white-faint);margin-bottom:1.25rem;">April 19, 2026 &bull; 3:00 PM</div>
+          <div class="sidebar-box" style="text-align:center;border-color:rgba(79,163,232,0.35);box-shadow:var(--glow-sm);">
+            <div class="sidebar-head">Next Match</div>
+            <div style="font-size:2rem;margin-bottom:0.5rem;">⚡ vs 🔥</div>
+            <div style="font-family:var(--font-head);font-size:0.78rem;color:var(--white);margin-bottom:0.25rem;">Thunder vs Fresno Inferno</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1.25rem;">April 19 · 3:00 PM · U-16 Boys</div>
             <a href="schedule.html" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Full Schedule</a>
           </div>
 
-          <!-- Newsletter -->
-          <div class="sidebar-card animate-in">
-            <div class="sidebar-title">Newsletter</div>
-            <p style="font-size:0.85rem;color:var(--white-faint);margin-bottom:1rem;line-height:1.6;">Get the latest Thunder news straight to your inbox.</p>
-            <div class="newsletter-form">
-              <input type="email" class="newsletter-input" placeholder="Your email address" />
-              <button class="btn btn-primary" style="width:100%;justify-content:center;">Subscribe &#9889;</button>
-            </div>
+          <div class="sidebar-box">
+            <div class="sidebar-head">Stay Updated</div>
+            <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">Get club news delivered to your inbox.</p>
+            <input class="news-input" type="email" placeholder="Your email address" style="margin-bottom:0.75rem;" />
+            <button class="btn btn-primary" style="width:100%;justify-content:center;">Subscribe</button>
           </div>
-
         </aside>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <div class="footer-brand-name">Southvalley Thunder</div>
-          <div class="footer-brand-sub">Bakersfield Soccer Club</div>
-          <p class="footer-brand-desc">Born from the valley. Driven by thunder. Representing Bakersfield with passion, precision, and pride since 2018.</p>
-        </div>
-        <div>
-          <div class="footer-heading">Quick Links</div>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="team.html">Team</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-heading">Club</div>
-          <ul class="footer-links">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Coaching Staff</a></li>
-            <li><a href="#">Youth Program</a></li>
-            <li><a href="#">Sponsorship</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-heading">Contact</div>
-          <ul class="footer-links">
-            <li><a href="contact.html">Get In Touch</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter / X</a></li>
-          </ul>
-        </div>
+        <div><div class="footer-logo-name">Southvalley Thunder</div><div class="footer-logo-tag">Bakersfield Youth Soccer Club</div><p class="footer-desc">Developing players and building character in Bakersfield, CA since 2018. U-8 through U-19.</p></div>
+        <div><div class="footer-heading">Club</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="teams.html">Teams</a></li><li><a href="register.html">Register</a></li></ul></div>
+        <div><div class="footer-heading">Info</div><ul class="footer-links"><li><a href="schedule.html">Schedule</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><div class="footer-heading">Contact</div><ul class="footer-links"><li><a href="#">(661) 555-0187</a></li><li><a href="#">info@svthunder.com</a></li><li><a href="#">Bakersfield, CA</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li></ul></div>
       </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved. Bakersfield, CA.</p>
-        <p class="footer-copy">Built with <span>&#9889;</span></p>
-      </div>
+      <div class="footer-bottom"><p class="footer-copy">&copy; 2026 <span>Southvalley Thunder FC</span>. All rights reserved.</p><p class="footer-copy">Bakersfield, CA &bull; U-8 through U-19</p></div>
     </div>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>
