@@ -1,3 +1,4 @@
+import { ParticleHero } from '@/components/ui/particle-hero'
 import HeroSection from '@/components/HeroSection'
 import PhilosophyStrip from '@/components/PhilosophyStrip'
 import ServicesGrid from '@/components/ServicesGrid'
@@ -10,6 +11,7 @@ import CtaBand from '@/components/CtaBand'
 export default function HomePage() {
   return (
     <>
+      <ParticleHero />
       <HeroSection />
       <PhilosophyStrip />
       <ServicesGrid />
